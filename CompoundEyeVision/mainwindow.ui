@@ -6,17 +6,1166 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>4738</width>
+    <height>2658</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>3461</width>
+      <height>2371</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QTabWidget" name="TabWidget">
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <widget class="QWidget" name="SubView1">
+        <attribute name="title">
+         <string>SubView1</string>
+        </attribute>
+        <widget class="DisplayWidget" name="main_widget_subview0" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1712</width>
+           <height>1120</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="DisplayWidget" name="main_widget_subview1" native="true">
+         <property name="geometry">
+          <rect>
+           <x>1730</x>
+           <y>0</y>
+           <width>1712</width>
+           <height>1120</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="DisplayWidget" name="main_widget_subview2" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>1135</y>
+           <width>1712</width>
+           <height>1170</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="DisplayWidget" name="main_widget_subview3" native="true">
+         <property name="geometry">
+          <rect>
+           <x>1730</x>
+           <y>1135</y>
+           <width>1712</width>
+           <height>1170</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="SubView2">
+        <attribute name="title">
+         <string>SubView2</string>
+        </attribute>
+        <widget class="DisplayWidget" name="main_widget_subview7" native="true">
+         <property name="geometry">
+          <rect>
+           <x>1730</x>
+           <y>1135</y>
+           <width>1712</width>
+           <height>1170</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="DisplayWidget" name="main_widget_subview6" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>1135</y>
+           <width>1712</width>
+           <height>1170</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="DisplayWidget" name="main_widget_subview5" native="true">
+         <property name="geometry">
+          <rect>
+           <x>1730</x>
+           <y>0</y>
+           <width>1712</width>
+           <height>1120</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="DisplayWidget" name="main_widget_subview4" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>1712</width>
+           <height>1120</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="MainView">
+        <attribute name="title">
+         <string>MainView</string>
+        </attribute>
+        <widget class="DisplayWidget" name="main_widget_single" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>3451</width>
+           <height>2301</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="Stitch">
+        <attribute name="title">
+         <string>Stitch</string>
+        </attribute>
+        <widget class="DisplayWidget" name="main_widget_stitch" native="true">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>3451</width>
+           <height>2301</height>
+          </rect>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>3490</x>
+      <y>30</y>
+      <width>601</width>
+      <height>2391</height>
+     </rect>
+    </property>
+    <widget class="QPushButton" name="pushButton_start">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>601</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Start</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_camSwitch">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>50</y>
+       <width>601</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Source</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioButton_isUsb">
+        <property name="text">
+         <string>USB</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="radioButton_isVideo">
+        <property name="text">
+         <string>Video</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_camSelect">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>180</y>
+       <width>601</width>
+       <height>201</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>CamSelect</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioButton_cam0">
+        <property name="text">
+         <string>Cam1</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="radioButton_cam1">
+        <property name="text">
+         <string>Cam2</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="radioButton_cam2">
+        <property name="text">
+         <string>Cam3</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QRadioButton" name="radioButton_cam5">
+        <property name="text">
+         <string>Cam4</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QRadioButton" name="radioButton_cam4">
+        <property name="text">
+         <string>Cam5</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QRadioButton" name="radioButton_cam3">
+        <property name="text">
+         <string>Cam6</string>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_airParam">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>380</y>
+       <width>601</width>
+       <height>281</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>AirChannel</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QSlider" name="horizontalSlider_Rch">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="sliderPosition">
+         <number>70</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::NoTicks</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_Red">
+        <property name="text">
+         <string>R : 0.7</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="horizontalSlider_Gch">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="sliderPosition">
+         <number>70</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::NoTicks</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_Green">
+        <property name="text">
+         <string>G : 0.7</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="horizontalSlider_Bch">
+        <property name="font">
+         <font>
+          <pointsize>16</pointsize>
+         </font>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="sliderPosition">
+         <number>70</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="tickPosition">
+         <enum>QSlider::NoTicks</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_Blue">
+        <property name="text">
+         <string>B : 0.7</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_dehaze">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>670</y>
+       <width>601</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Dehaze</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QRadioButton" name="radioButton_isDehaze">
+        <property name="text">
+         <string>Enable</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_dedark">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>780</y>
+       <width>601</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>LowLightEnhance</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QRadioButton" name="radioButton_isEnhance">
+        <property name="text">
+         <string>Enable</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_colorCorrection">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>920</y>
+       <width>271</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="acceptDrops">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>colorCorrection</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="Line" name="line_colorCorrect">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>890</y>
+       <width>601</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line_isTwinView">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>970</y>
+       <width>601</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_isTwinView">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>990</y>
+       <width>212</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="acceptDrops">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>isTwinView</string>
+     </property>
+     <property name="autoExclusive">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="Line" name="line_LowLightParam">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>1040</y>
+       <width>601</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_show_enhance_val">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>1060</y>
+       <width>211</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>LowLightParam</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="horizontalSlider_enhance_kval">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>1100</y>
+       <width>511</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>3</number>
+     </property>
+     <property name="maximum">
+      <number>10</number>
+     </property>
+     <property name="pageStep">
+      <number>1</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_enhance_val">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>1130</y>
+       <width>41</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line_LowLightParam_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>1170</y>
+       <width>601</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_show_zoom_val">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>1200</y>
+       <width>171</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Zoom Param</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="horizontalSlider_zoom_val">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>1240</y>
+       <width>511</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>80</number>
+     </property>
+     <property name="pageStep">
+      <number>1</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_zoom_val">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>1270</y>
+       <width>31</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="spinBox_zoom_val">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>1310</y>
+       <width>601</width>
+       <height>49</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_updateparam">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>1370</y>
+       <width>601</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>UpdateParam</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_colorCorrection">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>1430</y>
+       <width>601</width>
+       <height>48</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>ColorCorrection</string>
+     </property>
+    </widget>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>1490</y>
+       <width>601</width>
+       <height>881</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>599</width>
+        <height>879</height>
+       </rect>
+      </property>
+      <widget class="QGroupBox" name="Cam0box">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>601</width>
+         <height>215</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Cam0 adjustment tools</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="2" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam0_R">
+          <property name="minimum">
+           <number>-45</number>
+          </property>
+          <property name="maximum">
+           <number>45</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Rolate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam0_Z">
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>X </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam0_X">
+          <property name="maximum">
+           <number>150</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_can0_Y">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_cam0_X">
+          <property name="text">
+           <string>000</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="label_cam0_R">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Zoom</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="label_cam0_Z">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam0_Y">
+          <property name="maximum">
+           <number>150</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QGroupBox" name="Cam1box">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>220</y>
+         <width>601</width>
+         <height>215</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Cam1 adjustment tools</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>X </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam1_X">
+          <property name="maximum">
+           <number>150</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_cam1_X">
+          <property name="text">
+           <string>000</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam1_Y">
+          <property name="maximum">
+           <number>150</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_cam1_Y">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Rolate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam1_R">
+          <property name="minimum">
+           <number>-45</number>
+          </property>
+          <property name="maximum">
+           <number>45</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="label_cam1_R">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>Zoom</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam1_Z">
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="label_cam1_Z">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QGroupBox" name="Cam2box">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>430</y>
+         <width>601</width>
+         <height>215</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Cam2 adjustment tools</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>X </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam2_X">
+          <property name="maximum">
+           <number>150</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="sliderPosition">
+           <number>0</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_cam2_X">
+          <property name="text">
+           <string>000</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam2_Y">
+          <property name="maximum">
+           <number>150</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_cam2_Y">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="text">
+           <string>Rolate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam2_R">
+          <property name="minimum">
+           <number>-45</number>
+          </property>
+          <property name="maximum">
+           <number>45</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLabel" name="label_cam2_R">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Zoom</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam2_Z">
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="label_cam2_Z">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QGroupBox" name="Cam3box">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>650</y>
+         <width>601</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Global adjustment tools</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_cam3_R">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam3_Z">
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_29">
+          <property name="text">
+           <string>Rolate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSlider" name="horizontalSlider_cam3_R">
+          <property name="minimum">
+           <number>-45</number>
+          </property>
+          <property name="maximum">
+           <number>45</number>
+          </property>
+          <property name="pageStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_31">
+          <property name="text">
+           <string>Zoom</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_cam3_Z">
+          <property name="text">
+           <string>0</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>4738</width>
+     <height>39</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DisplayWidget</class>
+   <extends>QWidget</extends>
+   <header>displaywidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

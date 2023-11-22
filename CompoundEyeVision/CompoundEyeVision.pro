@@ -16,17 +16,85 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    CompoundEye.cpp \
+    backend.cpp \
+    displaywidget.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    mainwindow.h
+    CompoundEye.h \
+    backend.h \
+    displaywidget.h \
+    mainwindow.h \
+    type.h \
+    video.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    mainwindow_copy.ui
 
-TRANSLATIONS += \
+TRANSLATIONS +=/usr/local/include \
+		/usr/include \
+#		/usr/lib/x86_64-linux-gnu \
     CompoundEyeVision_zh_CN.ts
+ 
+LIBS += -L/usr/local/lib
+LIBS += -L/usr/lib
+
+#opencv4.8
+#INCLUDEPATH += /usr/include/opencv4 \
+
+INCLUDEPATH += /usr/local/include/opencv4 \
+               /usr/local/include/boost   \
+               /usr/lib/gcc/x86_64-linux-gnu \
+               /usr/local/cuda-12.0/targets/x86_64-linux/include \
+		
+CONFIG += link_pkgconfig
+PKGCONFIG += opencv4
+
+#LIBS += -L /usr/lib/ -lopencv_core -lopencv_highgui -lopencv_imgproc -lopencv_imgcodecs
+#LIBS += -L /usr/local/lib/libopencv_*.so
+
+LIBS +=  -L/usr/local/lib \
+#        -L/usr/lib/x86_64-linux-gnu \
+        -lgomp \
+        -llapack \
+        -latlas \
+        -lboost_system \
+        -lboost_thread \
+        -lboost_filesystem \
+        -lboost_chrono \
+        -lboost_date_time \
+        -lboost_atomic \
+        -lpthread \
+        -lglog \
+        -lgflags \
+        -lz \
+        -ldl \
+        -lm \
+        -lopencv_calib3d \
+        -lopencv_highgui \
+        -lopencv_core \
+        -lopencv_cudev \
+        -lopencv_cudacodec \
+        -lopencv_cudaarithm \
+        -lopencv_cudaimgproc \
+        -lopencv_cudawarping \
+        -lopencv_imgcodecs \
+        -lopencv_imgproc \
+        -lopencv_videoio \
+        -lopencv_video \
+        -lopencv_xfeatures2d \
+        -lopencv_cudafeatures2d \
+
+
+# Path to cuda SDK install
+CUDA_SDK = "/usr/local/cuda-12.0/"
+# Path to cuda toolkit install
+CUDA_DIR = "/usr/local/cuda-12.0/"
+
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
