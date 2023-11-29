@@ -179,10 +179,10 @@ public:
     int cam2_r = 0;
     int cam2_z = 0;
 
-    int cam3_x = 0;
-    int cam3_y = 0;
-    int cam3_r = 0;
-    int cam3_z = 0;
+//    int cam3_x = 0;
+//    int cam3_y = 0;
+//    int cam3_r = 0;
+//    int cam3_z = 0;
 
     int camGlobal_r = 0;
     int camGlobal_z = 0;
@@ -199,8 +199,8 @@ public:
 //    float factor = 0.709f;
 //    float threshold[3] = { 0.8f, 0.8f, 0.8f };
 //    int minSize = 30;
-//    //Image snapshot for matching feature point
-//    std::vector<cv::Mat> camSnapshot;
+    //Image snapshot for matching feature point
+    std::vector<cv::Mat> camSnapshot;
 //    //Track param
 //    float conf_th = 0.75;
 //    vector<TrackingBox> tracking_results;
@@ -238,9 +238,6 @@ public:
      cv::Mat view_base;
 };
 
-class DetectResult {
-public:
-    cv::Mat detect_view;
-};
+
 
 #endif

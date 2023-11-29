@@ -53,14 +53,20 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../CompoundEyeVision/CompoundEye.cpp \
+		../CompoundEyeVision/backend.cpp \
 		../CompoundEyeVision/displaywidget.cpp \
 		../CompoundEyeVision/main.cpp \
-		../CompoundEyeVision/mainwindow.cpp moc_displaywidget.cpp \
+		../CompoundEyeVision/mainwindow.cpp \
+		../CompoundEyeVision/open_usbcam.cpp moc_backend.cpp \
+		moc_displaywidget.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = CompoundEye.o \
+		backend.o \
 		displaywidget.o \
 		main.o \
 		mainwindow.o \
+		open_usbcam.o \
+		moc_backend.o \
 		moc_displaywidget.o \
 		moc_mainwindow.o
 DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
@@ -276,13 +282,17 @@ DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/lex.prf \
 		../CompoundEyeVision/CompoundEyeVision.pro ../CompoundEyeVision/CompoundEye.h \
+		../CompoundEyeVision/backend.h \
 		../CompoundEyeVision/displaywidget.h \
 		../CompoundEyeVision/mainwindow.h \
+		../CompoundEyeVision/open_usbcam.h \
 		../CompoundEyeVision/type.h \
 		../CompoundEyeVision/video.h ../CompoundEyeVision/CompoundEye.cpp \
+		../CompoundEyeVision/backend.cpp \
 		../CompoundEyeVision/displaywidget.cpp \
 		../CompoundEyeVision/main.cpp \
-		../CompoundEyeVision/mainwindow.cpp
+		../CompoundEyeVision/mainwindow.cpp \
+		../CompoundEyeVision/open_usbcam.cpp
 QMAKE_TARGET  = CompoundEyeVision
 DESTDIR       = 
 TARGET        = CompoundEyeVision
@@ -736,8 +746,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.h ../CompoundEyeVision/displaywidget.h ../CompoundEyeVision/mainwindow.h ../CompoundEyeVision/type.h ../CompoundEyeVision/video.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.cpp ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.h ../CompoundEyeVision/backend.h ../CompoundEyeVision/displaywidget.h ../CompoundEyeVision/mainwindow.h ../CompoundEyeVision/open_usbcam.h ../CompoundEyeVision/type.h ../CompoundEyeVision/video.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.cpp ../CompoundEyeVision/backend.cpp ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/open_usbcam.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CompoundEyeVision/mainwindow.ui ../CompoundEyeVision/mainwindow_copy.ui $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/include /usr/include CompoundEyeVision_zh_CN.ts $(DISTDIR)/
 
@@ -771,9 +781,94 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_displaywidget.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_backend.cpp moc_displaywidget.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_displaywidget.cpp moc_mainwindow.cpp
+	-$(DEL_FILE) moc_backend.cpp moc_displaywidget.cpp moc_mainwindow.cpp
+moc_backend.cpp: ../CompoundEyeVision/backend.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringliteral.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringview.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qset.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/open_usbcam.h \
+		moc_predefs.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
+	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision -I/usr/local/include/opencv4 -I/usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../CompoundEyeVision/backend.h -o moc_backend.cpp
+
 moc_displaywidget.cpp: ../CompoundEyeVision/displaywidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qwidget.h \
@@ -887,12 +982,21 @@ moc_displaywidget.cpp: ../CompoundEyeVision/displaywidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPalette \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QEvent \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QMouseEvent \
+		../CompoundEyeVision/backend.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/open_usbcam.h \
 		moc_predefs.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
 	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision -I/usr/local/include/opencv4 -I/usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../CompoundEyeVision/displaywidget.h -o moc_displaywidget.cpp
@@ -1005,6 +1109,31 @@ moc_mainwindow.cpp: ../CompoundEyeVision/mainwindow.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qicon.h \
+		../CompoundEyeVision/displaywidget.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QImage \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPainter \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpainter.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPalette \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QEvent \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QMouseEvent \
+		../CompoundEyeVision/backend.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/open_usbcam.h \
 		moc_predefs.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
 	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision -I/usr/local/include/opencv4 -I/usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../CompoundEyeVision/mainwindow.h -o moc_mainwindow.cpp
@@ -1131,12 +1260,21 @@ ui_mainwindow.h: ../CompoundEyeVision/mainwindow.ui \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPalette \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QEvent \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QMouseEvent \
+		../CompoundEyeVision/backend.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/open_usbcam.h
 	/opt/Qt5.14.2/5.14.2/gcc_64/bin/uic ../CompoundEyeVision/mainwindow.ui -o ui_mainwindow.h
 
 ui_mainwindow_copy.h: ../CompoundEyeVision/mainwindow_copy.ui \
@@ -1254,12 +1392,21 @@ ui_mainwindow_copy.h: ../CompoundEyeVision/mainwindow_copy.ui \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPalette \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QEvent \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QMouseEvent \
+		../CompoundEyeVision/backend.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/open_usbcam.h
 	/opt/Qt5.14.2/5.14.2/gcc_64/bin/uic ../CompoundEyeVision/mainwindow_copy.ui -o ui_mainwindow_copy.h
 
 compiler_yacc_decl_make_all:
@@ -1274,6 +1421,89 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 CompoundEye.o: ../CompoundEyeVision/CompoundEye.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CompoundEye.o ../CompoundEyeVision/CompoundEye.cpp
+
+backend.o: ../CompoundEyeVision/backend.cpp ../CompoundEyeVision/backend.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringliteral.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringview.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qset.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/open_usbcam.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o backend.o ../CompoundEyeVision/backend.cpp
 
 displaywidget.o: ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/displaywidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget \
@@ -1388,13 +1618,21 @@ displaywidget.o: ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/dis
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPalette \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QEvent \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QMouseEvent \
+		../CompoundEyeVision/backend.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/open_usbcam.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o displaywidget.o ../CompoundEyeVision/displaywidget.cpp
 
 main.o: ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.h \
@@ -1505,6 +1743,31 @@ main.o: ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qicon.h \
+		../CompoundEyeVision/displaywidget.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QImage \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPainter \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpainter.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPalette \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QEvent \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QMouseEvent \
+		../CompoundEyeVision/backend.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/open_usbcam.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qapplication.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1517,7 +1780,6 @@ main.o: ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QScreen \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qscreen.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QList \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QRect \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QSize \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QSizeF \
@@ -1633,6 +1895,31 @@ mainwindow.o: ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/mainwindo
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qicon.h \
+		../CompoundEyeVision/displaywidget.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QImage \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPainter \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpainter.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPalette \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QEvent \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QMouseEvent \
+		../CompoundEyeVision/backend.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/open_usbcam.h \
 		ui_mainwindow.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QVariant \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QApplication \
@@ -1667,6 +1954,9 @@ mainwindow.o: ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/mainwindo
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QRadioButton \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qradiobutton.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QScrollArea \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qscrollarea.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QSlider \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qslider.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qabstractslider.h \
@@ -1678,24 +1968,85 @@ mainwindow.o: ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/mainwindo
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QStatusBar \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qstatusbar.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QTabWidget \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QVBoxLayout \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget \
-		../CompoundEyeVision/displaywidget.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QImage \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPainter \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpainter.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtextoption.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpen.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QPalette \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QEvent \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/QMouseEvent \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDateTime \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatetime.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QThread \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qthread.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QFile
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../CompoundEyeVision/mainwindow.cpp
+
+open_usbcam.o: ../CompoundEyeVision/open_usbcam.cpp ../CompoundEyeVision/open_usbcam.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QDebug \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringliteral.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringview.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qset.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../CompoundEyeVision/type.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o open_usbcam.o ../CompoundEyeVision/open_usbcam.cpp
+
+moc_backend.o: moc_backend.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_backend.o moc_backend.cpp
 
 moc_displaywidget.o: moc_displaywidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_displaywidget.o moc_displaywidget.cpp

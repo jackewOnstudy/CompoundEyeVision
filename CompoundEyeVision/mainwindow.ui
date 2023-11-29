@@ -27,7 +27,7 @@
      <item>
       <widget class="QTabWidget" name="TabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>3</number>
        </property>
        <widget class="QWidget" name="SubView1">
         <attribute name="title">
@@ -147,6 +147,16 @@
            <height>2301</height>
           </rect>
          </property>
+         <widget class="DisplayWidget" name="main_widget_free" native="true">
+          <property name="geometry">
+           <rect>
+            <x>570</x>
+            <y>150</y>
+            <width>120</width>
+            <height>80</height>
+           </rect>
+          </property>
+         </widget>
         </widget>
        </widget>
       </widget>
@@ -229,7 +239,7 @@
       <item row="0" column="0">
        <widget class="QRadioButton" name="radioButton_cam0">
         <property name="text">
-         <string>Cam1</string>
+         <string>Cam0</string>
         </property>
         <property name="autoExclusive">
          <bool>false</bool>
@@ -239,7 +249,7 @@
       <item row="0" column="1">
        <widget class="QRadioButton" name="radioButton_cam1">
         <property name="text">
-         <string>Cam2</string>
+         <string>Cam1</string>
         </property>
         <property name="autoExclusive">
          <bool>false</bool>
@@ -249,7 +259,7 @@
       <item row="1" column="0">
        <widget class="QRadioButton" name="radioButton_cam2">
         <property name="text">
-         <string>Cam3</string>
+         <string>Cam2</string>
         </property>
         <property name="autoExclusive">
          <bool>false</bool>
@@ -257,9 +267,9 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QRadioButton" name="radioButton_cam5">
+       <widget class="QRadioButton" name="radioButton_cam3">
         <property name="text">
-         <string>Cam4</string>
+         <string>Cam3</string>
         </property>
         <property name="autoExclusive">
          <bool>false</bool>
@@ -269,7 +279,7 @@
       <item row="2" column="0">
        <widget class="QRadioButton" name="radioButton_cam4">
         <property name="text">
-         <string>Cam5</string>
+         <string>Cam4</string>
         </property>
         <property name="autoExclusive">
          <bool>false</bool>
@@ -277,9 +287,9 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QRadioButton" name="radioButton_cam3">
+       <widget class="QRadioButton" name="radioButton_cam5">
         <property name="text">
-         <string>Cam6</string>
+         <string>Cam5</string>
         </property>
         <property name="autoExclusive">
          <bool>false</bool>
@@ -750,7 +760,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="label_can0_Y">
+         <widget class="QLabel" name="label_cam0_Y">
           <property name="text">
            <string>0</string>
           </property>
@@ -1070,7 +1080,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QGroupBox" name="Cam3box">
+      <widget class="QGroupBox" name="CamGlobal">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -1084,14 +1094,14 @@
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="2">
-         <widget class="QLabel" name="label_cam3_R">
+         <widget class="QLabel" name="label_camGlobal_R">
           <property name="text">
            <string>0</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSlider" name="horizontalSlider_cam3_Z">
+         <widget class="QSlider" name="horizontalSlider_camGlobal_Z">
           <property name="maximum">
            <number>10</number>
           </property>
@@ -1111,7 +1121,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSlider" name="horizontalSlider_cam3_R">
+         <widget class="QSlider" name="horizontalSlider_camGlobal_R">
           <property name="minimum">
            <number>-45</number>
           </property>
@@ -1134,7 +1144,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QLabel" name="label_cam3_Z">
+         <widget class="QLabel" name="label_camGlobal_Z">
           <property name="text">
            <string>0</string>
           </property>

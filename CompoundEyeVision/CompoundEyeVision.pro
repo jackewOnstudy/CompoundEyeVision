@@ -20,15 +20,16 @@ SOURCES += \
     backend.cpp \
     displaywidget.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    open_usbcam.cpp
 
 HEADERS += \
     CompoundEye.h \
     backend.h \
     displaywidget.h \
     mainwindow.h \
-    type.h \
-    video.h
+    open_usbcam.h \
+    type.h
 
 FORMS += \
     mainwindow.ui \

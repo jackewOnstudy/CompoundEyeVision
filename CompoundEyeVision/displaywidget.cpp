@@ -1,3 +1,11 @@
+/**
+ * @file displaywidget.cpp
+ * @author jackew
+ * @date 2023-11-22
+ * @brief This file contains the implementation of the custom control displaywidget.
+ *
+ * Copyright (c) 2023.
+ */
 #include "displaywidget.h"
 #include <QDebug>
 

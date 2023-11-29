@@ -53,6 +53,7 @@ public:
     DisplayWidget *main_widget_single;
     QWidget *Stitch;
     DisplayWidget *main_widget_stitch;
+    DisplayWidget *main_widget_free;
     QWidget *widget;
     QPushButton *pushButton_start;
     QGroupBox *groupBox_camSwitch;
@@ -64,9 +65,9 @@ public:
     QRadioButton *radioButton_cam0;
     QRadioButton *radioButton_cam1;
     QRadioButton *radioButton_cam2;
-    QRadioButton *radioButton_cam5;
-    QRadioButton *radioButton_cam4;
     QRadioButton *radioButton_cam3;
+    QRadioButton *radioButton_cam4;
+    QRadioButton *radioButton_cam5;
     QGroupBox *groupBox_airParam;
     QVBoxLayout *verticalLayout;
     QSlider *horizontalSlider_Rch;
@@ -105,7 +106,7 @@ public:
     QSlider *horizontalSlider_cam0_Z;
     QLabel *label;
     QSlider *horizontalSlider_cam0_X;
-    QLabel *label_can0_Y;
+    QLabel *label_cam0_Y;
     QLabel *label_cam0_X;
     QLabel *label_cam0_R;
     QLabel *label_4;
@@ -140,14 +141,14 @@ public:
     QLabel *label_12;
     QSlider *horizontalSlider_cam2_Z;
     QLabel *label_cam2_Z;
-    QGroupBox *Cam3box;
+    QGroupBox *CamGlobal;
     QGridLayout *gridLayout_4;
-    QLabel *label_cam3_R;
-    QSlider *horizontalSlider_cam3_Z;
+    QLabel *label_camGlobal_R;
+    QSlider *horizontalSlider_camGlobal_Z;
     QLabel *label_29;
-    QSlider *horizontalSlider_cam3_R;
+    QSlider *horizontalSlider_camGlobal_R;
     QLabel *label_31;
-    QLabel *label_cam3_Z;
+    QLabel *label_camGlobal_Z;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -207,6 +208,9 @@ public:
         main_widget_stitch = new DisplayWidget(Stitch);
         main_widget_stitch->setObjectName(QString::fromUtf8("main_widget_stitch"));
         main_widget_stitch->setGeometry(QRect(0, 0, 3451, 2301));
+        main_widget_free = new DisplayWidget(main_widget_stitch);
+        main_widget_free->setObjectName(QString::fromUtf8("main_widget_free"));
+        main_widget_free->setGeometry(QRect(570, 150, 120, 80));
         TabWidget->addTab(Stitch, QString());
 
         horizontalLayout->addWidget(TabWidget);
@@ -258,11 +262,11 @@ public:
 
         formLayout->setWidget(1, QFormLayout::LabelRole, radioButton_cam2);
 
-        radioButton_cam5 = new QRadioButton(groupBox_camSelect);
-        radioButton_cam5->setObjectName(QString::fromUtf8("radioButton_cam5"));
-        radioButton_cam5->setAutoExclusive(false);
+        radioButton_cam3 = new QRadioButton(groupBox_camSelect);
+        radioButton_cam3->setObjectName(QString::fromUtf8("radioButton_cam3"));
+        radioButton_cam3->setAutoExclusive(false);
 
-        formLayout->setWidget(1, QFormLayout::FieldRole, radioButton_cam5);
+        formLayout->setWidget(1, QFormLayout::FieldRole, radioButton_cam3);
 
         radioButton_cam4 = new QRadioButton(groupBox_camSelect);
         radioButton_cam4->setObjectName(QString::fromUtf8("radioButton_cam4"));
@@ -270,11 +274,11 @@ public:
 
         formLayout->setWidget(2, QFormLayout::LabelRole, radioButton_cam4);
 
-        radioButton_cam3 = new QRadioButton(groupBox_camSelect);
-        radioButton_cam3->setObjectName(QString::fromUtf8("radioButton_cam3"));
-        radioButton_cam3->setAutoExclusive(false);
+        radioButton_cam5 = new QRadioButton(groupBox_camSelect);
+        radioButton_cam5->setObjectName(QString::fromUtf8("radioButton_cam5"));
+        radioButton_cam5->setAutoExclusive(false);
 
-        formLayout->setWidget(2, QFormLayout::FieldRole, radioButton_cam3);
+        formLayout->setWidget(2, QFormLayout::FieldRole, radioButton_cam5);
 
         groupBox_airParam = new QGroupBox(widget);
         groupBox_airParam->setObjectName(QString::fromUtf8("groupBox_airParam"));
@@ -462,10 +466,10 @@ public:
 
         gridLayout->addWidget(horizontalSlider_cam0_X, 0, 1, 1, 1);
 
-        label_can0_Y = new QLabel(Cam0box);
-        label_can0_Y->setObjectName(QString::fromUtf8("label_can0_Y"));
+        label_cam0_Y = new QLabel(Cam0box);
+        label_cam0_Y->setObjectName(QString::fromUtf8("label_cam0_Y"));
 
-        gridLayout->addWidget(label_can0_Y, 1, 2, 1, 1);
+        gridLayout->addWidget(label_cam0_Y, 1, 2, 1, 1);
 
         label_cam0_X = new QLabel(Cam0box);
         label_cam0_X->setObjectName(QString::fromUtf8("label_cam0_X"));
@@ -660,47 +664,47 @@ public:
 
         gridLayout_3->addWidget(label_cam2_Z, 3, 2, 1, 1);
 
-        Cam3box = new QGroupBox(scrollAreaWidgetContents);
-        Cam3box->setObjectName(QString::fromUtf8("Cam3box"));
-        Cam3box->setGeometry(QRect(0, 650, 601, 141));
-        gridLayout_4 = new QGridLayout(Cam3box);
+        CamGlobal = new QGroupBox(scrollAreaWidgetContents);
+        CamGlobal->setObjectName(QString::fromUtf8("CamGlobal"));
+        CamGlobal->setGeometry(QRect(0, 650, 601, 141));
+        gridLayout_4 = new QGridLayout(CamGlobal);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        label_cam3_R = new QLabel(Cam3box);
-        label_cam3_R->setObjectName(QString::fromUtf8("label_cam3_R"));
+        label_camGlobal_R = new QLabel(CamGlobal);
+        label_camGlobal_R->setObjectName(QString::fromUtf8("label_camGlobal_R"));
 
-        gridLayout_4->addWidget(label_cam3_R, 0, 2, 1, 1);
+        gridLayout_4->addWidget(label_camGlobal_R, 0, 2, 1, 1);
 
-        horizontalSlider_cam3_Z = new QSlider(Cam3box);
-        horizontalSlider_cam3_Z->setObjectName(QString::fromUtf8("horizontalSlider_cam3_Z"));
-        horizontalSlider_cam3_Z->setMaximum(10);
-        horizontalSlider_cam3_Z->setPageStep(1);
-        horizontalSlider_cam3_Z->setOrientation(Qt::Horizontal);
+        horizontalSlider_camGlobal_Z = new QSlider(CamGlobal);
+        horizontalSlider_camGlobal_Z->setObjectName(QString::fromUtf8("horizontalSlider_camGlobal_Z"));
+        horizontalSlider_camGlobal_Z->setMaximum(10);
+        horizontalSlider_camGlobal_Z->setPageStep(1);
+        horizontalSlider_camGlobal_Z->setOrientation(Qt::Horizontal);
 
-        gridLayout_4->addWidget(horizontalSlider_cam3_Z, 1, 1, 1, 1);
+        gridLayout_4->addWidget(horizontalSlider_camGlobal_Z, 1, 1, 1, 1);
 
-        label_29 = new QLabel(Cam3box);
+        label_29 = new QLabel(CamGlobal);
         label_29->setObjectName(QString::fromUtf8("label_29"));
 
         gridLayout_4->addWidget(label_29, 0, 0, 1, 1);
 
-        horizontalSlider_cam3_R = new QSlider(Cam3box);
-        horizontalSlider_cam3_R->setObjectName(QString::fromUtf8("horizontalSlider_cam3_R"));
-        horizontalSlider_cam3_R->setMinimum(-45);
-        horizontalSlider_cam3_R->setMaximum(45);
-        horizontalSlider_cam3_R->setPageStep(1);
-        horizontalSlider_cam3_R->setOrientation(Qt::Horizontal);
+        horizontalSlider_camGlobal_R = new QSlider(CamGlobal);
+        horizontalSlider_camGlobal_R->setObjectName(QString::fromUtf8("horizontalSlider_camGlobal_R"));
+        horizontalSlider_camGlobal_R->setMinimum(-45);
+        horizontalSlider_camGlobal_R->setMaximum(45);
+        horizontalSlider_camGlobal_R->setPageStep(1);
+        horizontalSlider_camGlobal_R->setOrientation(Qt::Horizontal);
 
-        gridLayout_4->addWidget(horizontalSlider_cam3_R, 0, 1, 1, 1);
+        gridLayout_4->addWidget(horizontalSlider_camGlobal_R, 0, 1, 1, 1);
 
-        label_31 = new QLabel(Cam3box);
+        label_31 = new QLabel(CamGlobal);
         label_31->setObjectName(QString::fromUtf8("label_31"));
 
         gridLayout_4->addWidget(label_31, 1, 0, 1, 1);
 
-        label_cam3_Z = new QLabel(Cam3box);
-        label_cam3_Z->setObjectName(QString::fromUtf8("label_cam3_Z"));
+        label_camGlobal_Z = new QLabel(CamGlobal);
+        label_camGlobal_Z->setObjectName(QString::fromUtf8("label_camGlobal_Z"));
 
-        gridLayout_4->addWidget(label_cam3_Z, 1, 2, 1, 1);
+        gridLayout_4->addWidget(label_camGlobal_Z, 1, 2, 1, 1);
 
         scrollArea->setWidget(scrollAreaWidgetContents);
         MainWindow->setCentralWidget(centralwidget);
@@ -714,7 +718,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        TabWidget->setCurrentIndex(0);
+        TabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -732,12 +736,12 @@ public:
         radioButton_isUsb->setText(QCoreApplication::translate("MainWindow", "USB", nullptr));
         radioButton_isVideo->setText(QCoreApplication::translate("MainWindow", "Video", nullptr));
         groupBox_camSelect->setTitle(QCoreApplication::translate("MainWindow", "CamSelect", nullptr));
-        radioButton_cam0->setText(QCoreApplication::translate("MainWindow", "Cam1", nullptr));
-        radioButton_cam1->setText(QCoreApplication::translate("MainWindow", "Cam2", nullptr));
-        radioButton_cam2->setText(QCoreApplication::translate("MainWindow", "Cam3", nullptr));
-        radioButton_cam5->setText(QCoreApplication::translate("MainWindow", "Cam4", nullptr));
-        radioButton_cam4->setText(QCoreApplication::translate("MainWindow", "Cam5", nullptr));
-        radioButton_cam3->setText(QCoreApplication::translate("MainWindow", "Cam6", nullptr));
+        radioButton_cam0->setText(QCoreApplication::translate("MainWindow", "Cam0", nullptr));
+        radioButton_cam1->setText(QCoreApplication::translate("MainWindow", "Cam1", nullptr));
+        radioButton_cam2->setText(QCoreApplication::translate("MainWindow", "Cam2", nullptr));
+        radioButton_cam3->setText(QCoreApplication::translate("MainWindow", "Cam3", nullptr));
+        radioButton_cam4->setText(QCoreApplication::translate("MainWindow", "Cam4", nullptr));
+        radioButton_cam5->setText(QCoreApplication::translate("MainWindow", "Cam5", nullptr));
         groupBox_airParam->setTitle(QCoreApplication::translate("MainWindow", "AirChannel", nullptr));
         label_Red->setText(QCoreApplication::translate("MainWindow", "R : 0.7", nullptr));
         label_Green->setText(QCoreApplication::translate("MainWindow", "G : 0.7", nullptr));
@@ -757,7 +761,7 @@ public:
         Cam0box->setTitle(QCoreApplication::translate("MainWindow", "Cam0 adjustment tools", nullptr));
         label_3->setText(QCoreApplication::translate("MainWindow", "Rolate", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "X ", nullptr));
-        label_can0_Y->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_cam0_Y->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         label_cam0_X->setText(QCoreApplication::translate("MainWindow", "000", nullptr));
         label_cam0_R->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         label_4->setText(QCoreApplication::translate("MainWindow", "Zoom", nullptr));
@@ -781,11 +785,11 @@ public:
         label_cam2_R->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         label_12->setText(QCoreApplication::translate("MainWindow", "Zoom", nullptr));
         label_cam2_Z->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
-        Cam3box->setTitle(QCoreApplication::translate("MainWindow", "Global adjustment tools", nullptr));
-        label_cam3_R->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        CamGlobal->setTitle(QCoreApplication::translate("MainWindow", "Global adjustment tools", nullptr));
+        label_camGlobal_R->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         label_29->setText(QCoreApplication::translate("MainWindow", "Rolate", nullptr));
         label_31->setText(QCoreApplication::translate("MainWindow", "Zoom", nullptr));
-        label_cam3_Z->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
+        label_camGlobal_Z->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
     } // retranslateUi
 
 };

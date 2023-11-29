@@ -7,30 +7,8 @@
 #include <QEvent>
 #include <QMouseEvent>
 
-#include <QDateTime>
-#include <QObject>
-#include <QThread>
-#include <QFile>
 
-#include <opencv2/opencv.hpp>
-#include <opencv2/cudacodec.hpp>
-#include <opencv2/core/cuda.hpp>
-#include <opencv2/core/cuda_stream_accessor.hpp>
-#include <opencv2/opencv.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/xfeatures2d/nonfree.hpp>
-#include <opencv2/cudafeatures2d.hpp>
-#include <opencv2/cudaimgproc.hpp>
-#include <opencv2/xfeatures2d/cuda.hpp>
-
-#include <iostream>
-#include <time.h>
-#include <string>
-#include <cmath>
-
-#include <cmath>
-
-//#include "backend.h"
+#include "backend.h"
 
 class DisplayWidget : public QWidget
 {
