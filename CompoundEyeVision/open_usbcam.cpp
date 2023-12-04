@@ -15,6 +15,11 @@ UsbCam::UsbCam()
 
 }
 
+UsbCam:: ~UsbCam()
+{
+
+}
+
 /**
  * @brief open multi usb cameras
  */
@@ -23,7 +28,9 @@ void UsbCam::open_usbcam()
     // idx starts from 0
     usbCams = new VideoCapture[cam_maxnum];
     for(int i = 0; i < cam_maxnum; i++) {
-        usbCams[i].open("/dev/video_" + to_string(i));
+//        usbCams[i].open("/dev/video_" + to_string(i));
+        qDebug() << "open Camera:" << i * 2 << endl;
+        usbCams[i].open(i * 2, CAP_V4L2);
         if(!usbCams[i].isOpened()) {
             delete[] usbCams;
             qDebug() << "usb carema " << i << " not open!" << endl;

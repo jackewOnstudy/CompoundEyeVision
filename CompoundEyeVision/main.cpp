@@ -25,11 +25,8 @@ int main(int argc, char *argv[]) {
                       ));
     }
 
-//    w.init();
+    w.init();
     w.show();
-
-    VideoCapture cap;
-    cap.open(-1);
 
     return a.exec();
 }

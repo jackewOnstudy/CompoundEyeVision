@@ -144,7 +144,7 @@ bool Backend::open_usbcam()
     }
     // Remap generation
     vector<Point2f> corner;
-    corner = getCornerFromTxt("./CornerSet.txt");
+    corner = getCornerFromTxt("/home/jackew/Project/CompoundEyeVision/CornerSet.txt");
     for(int i = 0; i < camera_nums; i++) {
         usbCam.Cams[i].map_corners.push_back(corner[4 * i]);
         usbCam.Cams[i].map_corners.push_back(corner[4 * i + 1]);
@@ -298,7 +298,17 @@ void Backend::streamSingleCam()
 
 void Backend::streamStitch()
 {
-
+    if(sharedData->isKeyIn) {
+        sharedData->isKeyIn = false;
+        
+        switch(sharedData->inputMedia) {
+            case 0:
+                if(sharedData->isUpdateParam) {
+                    sharedData->isUpdateParam = false;
+//                    update_param(usbCam);
+                }
+        }
+    }
 }
 
 
@@ -316,6 +326,11 @@ bool Backend::funcStreamProcess()
 bool Backend:: funcStitchProcess()
 {
 
+}
+
+void Backend::update_usb_cam_param(UsbCam usbCam)
+{
+    
 }
 
 //get stitch corner from txt

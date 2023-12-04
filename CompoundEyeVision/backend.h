@@ -38,6 +38,7 @@ public:
 
     bool open_usbcam();
     bool close_usbcam();
+    void update_usb_cam_param(UsbCam usbCam);
     void update_corner_param(); // update corner param to implement stitch function.
 
     vector<Point2f> autoFindCorner;

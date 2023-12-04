@@ -286,8 +286,7 @@ DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../CompoundEyeVision/displaywidget.h \
 		../CompoundEyeVision/mainwindow.h \
 		../CompoundEyeVision/open_usbcam.h \
-		../CompoundEyeVision/type.h \
-		../CompoundEyeVision/video.h ../CompoundEyeVision/CompoundEye.cpp \
+		../CompoundEyeVision/type.h ../CompoundEyeVision/CompoundEye.cpp \
 		../CompoundEyeVision/backend.cpp \
 		../CompoundEyeVision/displaywidget.cpp \
 		../CompoundEyeVision/main.cpp \
@@ -746,7 +745,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.h ../CompoundEyeVision/backend.h ../CompoundEyeVision/displaywidget.h ../CompoundEyeVision/mainwindow.h ../CompoundEyeVision/open_usbcam.h ../CompoundEyeVision/type.h ../CompoundEyeVision/video.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.h ../CompoundEyeVision/backend.h ../CompoundEyeVision/displaywidget.h ../CompoundEyeVision/mainwindow.h ../CompoundEyeVision/open_usbcam.h ../CompoundEyeVision/type.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.cpp ../CompoundEyeVision/backend.cpp ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/open_usbcam.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CompoundEyeVision/mainwindow.ui ../CompoundEyeVision/mainwindow_copy.ui $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/include /usr/include CompoundEyeVision_zh_CN.ts $(DISTDIR)/

@@ -88,6 +88,7 @@ void MainWindow::onClickedStart()
     }
 
     ui->radioButton_cam0->setChecked(true);
+    qDebug() << "camera0 selected" << endl;
     backend_core_thread->start();
     qDebug() << "Camere starts successfully!" << endl;
 }
@@ -111,10 +112,10 @@ void MainWindow::onAck(StreamResult res)
                 ui->main_widget_subview4->display(res.view[4]);
             }
             if(!res.view[5].empty()) {
-                ui->main_widget_subview4->display(res.view[5]);
+                ui->main_widget_subview5->display(res.view[5]);
             }
             if(!res.view[6].empty()) {
-                ui->main_widget_subview4->display(res.view[6]);
+                ui->main_widget_subview6->display(res.view[6]);
             }
             break;
         case 2:

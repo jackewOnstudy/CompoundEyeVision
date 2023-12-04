@@ -58,6 +58,46 @@ private slots:
 
     void on_horizontalSlider_cam0_Y_valueChanged(int value);
 
+    void on_horizontalSlider_cam0_R_valueChanged(int value);
+
+    void on_horizontalSlider_cam0_Z_valueChanged(int value);
+
+    void on_horizontalSlider_cam1_X_valueChanged(int value);
+
+    void on_horizontalSlider_cam1_Y_valueChanged(int value);
+
+    void on_horizontalSlider_cam1_R_valueChanged(int value);
+
+    void on_horizontalSlider_cam1_Z_valueChanged(int value);
+
+    void on_horizontalSlider_cam2_X_valueChanged(int value);
+
+    void on_horizontalSlider_cam2_Y_valueChanged(int value);
+
+    void on_horizontalSlider_cam2_R_valueChanged(int value);
+
+    void on_horizontalSlider_cam2_Z_valueChanged(int value);
+
+    void on_horizontalSlider_camGlobal_R_valueChanged(int value);
+
+    void on_horizontalSlider_camGlobal_Z_valueChanged(int value);
+
+    void on_pushButton_updateparam_clicked();
+
+    void on_horizontalSlider_Rch_valueChanged(int value);
+
+    void on_horizontalSlider_Gch_valueChanged(int value);
+
+    void on_horizontalSlider_Bch_valueChanged(int value);
+
+    void on_pushButton_colorCorrection_clicked();
+
+    void on_radioButton_colorCorrection_toggled(bool checked);
+
+    void on_radioButton_isTwinView_toggled(bool checked);
+
+    void on_spinBox_zoom_val_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
 
