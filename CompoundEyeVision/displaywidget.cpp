@@ -56,7 +56,7 @@ void DisplayWidget::mousePressEvent(QMouseEvent * event)
      windows_width = this->width();
      windows_height = this->height();
      if(mouse_clk.x!=0 && mouse_clk.y!=0)
-     isPress = true;
+        isPress = true;
 }
 void DisplayWidget::mouseReleaseEvent(QMouseEvent * event)
 {
@@ -66,7 +66,7 @@ void DisplayWidget::mouseReleaseEvent(QMouseEvent * event)
      windows_width = this->width();
      windows_height = this->height();
      if(mouse_clk.x!=0 && mouse_clk.y!=0)
-     isPress = false;
+        isPress = false;
      qDebug()<< "event->pos().x(): " << event->pos().x() << "event->pos().y(): " << event->pos().y()  <<endl;
 
 }

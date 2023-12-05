@@ -305,7 +305,22 @@ void Backend::streamStitch()
             case 0:
                 if(sharedData->isUpdateParam) {
                     sharedData->isUpdateParam = false;
-//                    update_param(usbCam);
+                    update_usb_cam_param(usbCam);
+                }
+                for(int i = 0; i < camera_nums; i++) {
+                    vector<Point2f> temp_corner;
+                    temp_corner.clear();
+                    if(table_cam[i] = -1){
+                        for(int j = 0; j < 4; j++) {
+                            Point2f point_map;
+                            point_map.x = (usbCam.Cams[i].map_corners[j].x + sharedData->offset_xy.x) *
+                                    sharedData->rate_resize - (float)(video_cols * (sharedData->rate_resize - 1) / 2);
+                            point_map.y = (usbCam.Cams[i].map_corners[j].y + sharedData->offset_xy.y) *
+                                    sharedData->rate_resize - (float)(video_rows * (sharedData->rate_resize - 1) / 2);
+                            temp_corner.push_back(point_map);
+                        }
+//                        update_GpuMatxy()
+                    }
                 }
         }
     }

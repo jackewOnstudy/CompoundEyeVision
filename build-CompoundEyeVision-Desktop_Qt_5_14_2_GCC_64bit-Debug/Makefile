@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../CompoundEyeVision -I. -isystem /usr/local/include/opencv4 -isystem /usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -isystem /usr/include/opencv4/opencv -isystem /usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../CompoundEyeVision -I. -isystem /usr/local/include/opencv4 -isystem /usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I../CompoundEyeVision/CudaSift_Ind -I/usr/local/cuda-12.0/include -isystem /usr/include/opencv4/opencv -isystem /usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++
 QMAKE         = /opt/Qt5.14.2/5.14.2/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = CompoundEyeVision1.0.0
 DISTDIR = /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/.tmp/CompoundEyeVision1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt5.14.2/5.14.2/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/usr/local/lib -L/usr/lib -lgomp -llapack -latlas -lboost_system -lboost_thread -lboost_filesystem -lboost_chrono -lboost_date_time -lboost_atomic -lglog -lgflags -lz -ldl -lm -lopencv_cudev -lopencv_cudacodec -lopencv_cudaarithm -lopencv_cudaimgproc -lopencv_cudawarping -lopencv_xfeatures2d -lopencv_cudafeatures2d -lopencv_stitching -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dnn_superres -lopencv_dpm -lopencv_highgui -lopencv_face -lopencv_freetype -lopencv_fuzzy -lopencv_hdf -lopencv_hfs -lopencv_img_hash -lopencv_line_descriptor -lopencv_quality -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_shape -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_superres -lopencv_optflow -lopencv_surface_matching -lopencv_tracking -lopencv_datasets -lopencv_text -lopencv_dnn -lopencv_plot -lopencv_ml -lopencv_videostab -lopencv_videoio -lopencv_viz -lopencv_ximgproc -lopencv_video -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs -lopencv_features2d -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core /opt/Qt5.14.2/5.14.2/gcc_64/lib/libQt5Widgets.so /opt/Qt5.14.2/5.14.2/gcc_64/lib/libQt5Gui.so /opt/Qt5.14.2/5.14.2/gcc_64/lib/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -L/usr/local/cuda-12.0//lib64/ -L/usr/local/lib -lgomp -llapack -latlas -lboost_system -lboost_thread -lboost_filesystem -lboost_chrono -lboost_date_time -lboost_atomic -lglog -lgflags -lz -ldl -lm -lopencv_cudev -lopencv_cudacodec -lopencv_cudaarithm -lopencv_cudaimgproc -lopencv_cudawarping -lopencv_xfeatures2d -lopencv_cudafeatures2d -lcuda -lcudart -lnppc -lnpps -lcufft -lcublas -lcurand -lcudnn -lopencv_stitching -lopencv_aruco -lopencv_bgsegm -lopencv_bioinspired -lopencv_ccalib -lopencv_dnn_objdetect -lopencv_dnn_superres -lopencv_dpm -lopencv_highgui -lopencv_face -lopencv_freetype -lopencv_fuzzy -lopencv_hdf -lopencv_hfs -lopencv_img_hash -lopencv_line_descriptor -lopencv_quality -lopencv_reg -lopencv_rgbd -lopencv_saliency -lopencv_shape -lopencv_stereo -lopencv_structured_light -lopencv_phase_unwrapping -lopencv_superres -lopencv_optflow -lopencv_surface_matching -lopencv_tracking -lopencv_datasets -lopencv_text -lopencv_dnn -lopencv_plot -lopencv_ml -lopencv_videostab -lopencv_videoio -lopencv_viz -lopencv_ximgproc -lopencv_video -lopencv_xobjdetect -lopencv_objdetect -lopencv_calib3d -lopencv_imgcodecs -lopencv_features2d -lopencv_flann -lopencv_xphoto -lopencv_photo -lopencv_imgproc -lopencv_core /opt/Qt5.14.2/5.14.2/gcc_64/lib/libQt5Widgets.so /opt/Qt5.14.2/5.14.2/gcc_64/lib/libQt5Gui.so /opt/Qt5.14.2/5.14.2/gcc_64/lib/libQt5Core.so -lGL -lpthread   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -53,23 +53,33 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../CompoundEyeVision/CompoundEye.cpp \
+		../CompoundEyeVision/CudaSift_Src/geomFuncs.cpp \
 		../CompoundEyeVision/backend.cpp \
 		../CompoundEyeVision/displaywidget.cpp \
 		../CompoundEyeVision/main.cpp \
 		../CompoundEyeVision/mainwindow.cpp \
-		../CompoundEyeVision/open_usbcam.cpp moc_backend.cpp \
+		../CompoundEyeVision/open_usbcam.cpp \
+		../CompoundEyeVision/stitch_core.cpp moc_backend.cpp \
 		moc_displaywidget.cpp \
 		moc_mainwindow.cpp
-OBJECTS       = CompoundEye.o \
+OBJECTS       = cudaImage_cuda.o \
+		cudaSiftH_cuda.o \
+		matching_cuda.o \
+		CompoundEye.o \
+		geomFuncs.o \
 		backend.o \
 		displaywidget.o \
 		main.o \
 		mainwindow.o \
 		open_usbcam.o \
+		stitch_core.o \
 		moc_backend.o \
 		moc_displaywidget.o \
 		moc_mainwindow.o
-DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
+DIST          = ../CompoundEyeVision/CudaSift_Src/cudaImage.cu \
+		../CompoundEyeVision/CudaSift_Src/cudaSiftH.cu \
+		../CompoundEyeVision/CudaSift_Src/matching.cu \
+		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/common/linux.conf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/common/sanitize.conf \
@@ -286,12 +296,15 @@ DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../CompoundEyeVision/displaywidget.h \
 		../CompoundEyeVision/mainwindow.h \
 		../CompoundEyeVision/open_usbcam.h \
+		../CompoundEyeVision/stitch_core.h \
 		../CompoundEyeVision/type.h ../CompoundEyeVision/CompoundEye.cpp \
+		../CompoundEyeVision/CudaSift_Src/geomFuncs.cpp \
 		../CompoundEyeVision/backend.cpp \
 		../CompoundEyeVision/displaywidget.cpp \
 		../CompoundEyeVision/main.cpp \
 		../CompoundEyeVision/mainwindow.cpp \
-		../CompoundEyeVision/open_usbcam.cpp
+		../CompoundEyeVision/open_usbcam.cpp \
+		../CompoundEyeVision/stitch_core.cpp
 QMAKE_TARGET  = CompoundEyeVision
 DESTDIR       = 
 TARGET        = CompoundEyeVision
@@ -744,9 +757,10 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../CompoundEyeVision/CudaSift_Src/cudaImage.cu ../CompoundEyeVision/CudaSift_Src/cudaSiftH.cu ../CompoundEyeVision/CudaSift_Src/matching.cu $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.h ../CompoundEyeVision/backend.h ../CompoundEyeVision/displaywidget.h ../CompoundEyeVision/mainwindow.h ../CompoundEyeVision/open_usbcam.h ../CompoundEyeVision/type.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.cpp ../CompoundEyeVision/backend.cpp ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/open_usbcam.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.h ../CompoundEyeVision/backend.h ../CompoundEyeVision/displaywidget.h ../CompoundEyeVision/mainwindow.h ../CompoundEyeVision/open_usbcam.h ../CompoundEyeVision/stitch_core.h ../CompoundEyeVision/type.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.cpp ../CompoundEyeVision/CudaSift_Src/geomFuncs.cpp ../CompoundEyeVision/backend.cpp ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/open_usbcam.cpp ../CompoundEyeVision/stitch_core.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CompoundEyeVision/mainwindow.ui ../CompoundEyeVision/mainwindow_copy.ui $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/include /usr/include CompoundEyeVision_zh_CN.ts $(DISTDIR)/
 
@@ -771,6 +785,29 @@ mocables: compiler_moc_header_make_all compiler_moc_objc_header_make_all compile
 check: first
 
 benchmark: first
+
+compiler_cuda_d_make_all: cudaImage_cuda.o cudaSiftH_cuda.o matching_cuda.o
+compiler_cuda_d_clean:
+	-$(DEL_FILE) cudaImage_cuda.o cudaSiftH_cuda.o matching_cuda.o
+cudaImage_cuda.o: ../CompoundEyeVision/CudaSift_Src/cudaImage.cu \
+		../CompoundEyeVision/CudaSift_Ind/cudautils.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h
+	/usr/local/cuda-12.0//bin/nvcc -D_DEBUG --use_fast_math --fmad=false -I"/usr/local/include/opencv4" -I"/usr/local/include/boost" -I"/usr/lib/gcc/x86_64-linux-gnu" -I"/usr/local/cuda-12.0/targets/x86_64-linux/include" -I"/home/jackew/Project/CompoundEyeVision/CompoundEyeVision/CudaSift_Ind" -I"/usr/local/cuda-12.0//include" -l-lcuda -l-lcudart -l-lnppc -l-lnpps -l-lcufft -l-lcublas -l-lcurand -l-lcudnn --machine 64 -arch=sm_89 -c -o cudaImage_cuda.o ../CompoundEyeVision/CudaSift_Src/cudaImage.cu
+
+cudaSiftH_cuda.o: ../CompoundEyeVision/CudaSift_Src/cudaSiftH.cu \
+		../CompoundEyeVision/CudaSift_Ind/cudautils.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSiftD.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSiftH.h \
+		../CompoundEyeVision/CudaSift_Src/cudaSiftD.cu
+	/usr/local/cuda-12.0//bin/nvcc -D_DEBUG --use_fast_math --fmad=false -I"/usr/local/include/opencv4" -I"/usr/local/include/boost" -I"/usr/lib/gcc/x86_64-linux-gnu" -I"/usr/local/cuda-12.0/targets/x86_64-linux/include" -I"/home/jackew/Project/CompoundEyeVision/CompoundEyeVision/CudaSift_Ind" -I"/usr/local/cuda-12.0//include" -l-lcuda -l-lcudart -l-lnppc -l-lnpps -l-lcufft -l-lcublas -l-lcurand -l-lcudnn --machine 64 -arch=sm_89 -c -o cudaSiftH_cuda.o ../CompoundEyeVision/CudaSift_Src/cudaSiftH.cu
+
+matching_cuda.o: ../CompoundEyeVision/CudaSift_Src/matching.cu \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudautils.h
+	/usr/local/cuda-12.0//bin/nvcc -D_DEBUG --use_fast_math --fmad=false -I"/usr/local/include/opencv4" -I"/usr/local/include/boost" -I"/usr/lib/gcc/x86_64-linux-gnu" -I"/usr/local/cuda-12.0/targets/x86_64-linux/include" -I"/home/jackew/Project/CompoundEyeVision/CompoundEyeVision/CudaSift_Ind" -I"/usr/local/cuda-12.0//include" -l-lcuda -l-lcudart -l-lnppc -l-lnpps -l-lcufft -l-lcublas -l-lcurand -l-lcudnn --machine 64 -arch=sm_89 -c -o matching_cuda.o ../CompoundEyeVision/CudaSift_Src/matching.cu
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
@@ -866,7 +903,7 @@ moc_backend.cpp: ../CompoundEyeVision/backend.h \
 		../CompoundEyeVision/open_usbcam.h \
 		moc_predefs.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
-	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision -I/usr/local/include/opencv4 -I/usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../CompoundEyeVision/backend.h -o moc_backend.cpp
+	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision -I/usr/local/include/opencv4 -I/usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision/CudaSift_Ind -I/usr/local/cuda-12.0/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../CompoundEyeVision/backend.h -o moc_backend.cpp
 
 moc_displaywidget.cpp: ../CompoundEyeVision/displaywidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget \
@@ -998,7 +1035,7 @@ moc_displaywidget.cpp: ../CompoundEyeVision/displaywidget.h \
 		../CompoundEyeVision/open_usbcam.h \
 		moc_predefs.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
-	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision -I/usr/local/include/opencv4 -I/usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../CompoundEyeVision/displaywidget.h -o moc_displaywidget.cpp
+	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision -I/usr/local/include/opencv4 -I/usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision/CudaSift_Ind -I/usr/local/cuda-12.0/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../CompoundEyeVision/displaywidget.h -o moc_displaywidget.cpp
 
 moc_mainwindow.cpp: ../CompoundEyeVision/mainwindow.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMainWindow \
@@ -1135,7 +1172,7 @@ moc_mainwindow.cpp: ../CompoundEyeVision/mainwindow.h \
 		../CompoundEyeVision/open_usbcam.h \
 		moc_predefs.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
-	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision -I/usr/local/include/opencv4 -I/usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../CompoundEyeVision/mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/jackew/Project/CompoundEyeVision/build-CompoundEyeVision-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision -I/usr/local/include/opencv4 -I/usr/local/include/boost -I/usr/lib/gcc/x86_64-linux-gnu -I/usr/local/cuda-12.0/targets/x86_64-linux/include -I/home/jackew/Project/CompoundEyeVision/CompoundEyeVision/CudaSift_Ind -I/usr/local/cuda-12.0/include -I/usr/include/opencv4/opencv -I/usr/include/opencv4 -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../CompoundEyeVision/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1414,12 +1451,16 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_cuda_d_clean compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
 CompoundEye.o: ../CompoundEyeVision/CompoundEye.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o CompoundEye.o ../CompoundEyeVision/CompoundEye.cpp
+
+geomFuncs.o: ../CompoundEyeVision/CudaSift_Src/geomFuncs.cpp ../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o geomFuncs.o ../CompoundEyeVision/CudaSift_Src/geomFuncs.cpp
 
 backend.o: ../CompoundEyeVision/backend.cpp ../CompoundEyeVision/backend.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QObject \
@@ -1919,55 +1960,7 @@ mainwindow.o: ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/mainwindo
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
 		../CompoundEyeVision/open_usbcam.h \
-		ui_mainwindow.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QVariant \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QApplication \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qapplication.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qeventloop.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qguiapplication.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qinputmethod.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QFormLayout \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qformlayout.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QLayout \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qlayout.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qlayoutitem.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qboxlayout.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qgridlayout.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QFrame \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qframe.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QGridLayout \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QGroupBox \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qgroupbox.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QHBoxLayout \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QLabel \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qlabel.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMenuBar \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmenubar.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmenu.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qaction.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QPushButton \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qpushbutton.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qabstractbutton.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QRadioButton \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qradiobutton.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QScrollArea \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qscrollarea.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QSlider \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qslider.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QSpinBox \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qspinbox.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qvalidator.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qregularexpression.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QStatusBar \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qstatusbar.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QTabWidget \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QVBoxLayout
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../CompoundEyeVision/mainwindow.cpp
 
 open_usbcam.o: ../CompoundEyeVision/open_usbcam.cpp ../CompoundEyeVision/open_usbcam.h \
@@ -2043,6 +2036,15 @@ open_usbcam.o: ../CompoundEyeVision/open_usbcam.cpp ../CompoundEyeVision/open_us
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o open_usbcam.o ../CompoundEyeVision/open_usbcam.cpp
+
+stitch_core.o: ../CompoundEyeVision/stitch_core.cpp ../CompoundEyeVision/stitch_core.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/type.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o stitch_core.o ../CompoundEyeVision/stitch_core.cpp
 
 moc_backend.o: moc_backend.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_backend.o moc_backend.cpp
