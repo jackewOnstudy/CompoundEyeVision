@@ -25,6 +25,7 @@
 #include <cmath>
 
 #include "type.h"
+#include "stitch_core.h"
 #include "open_usbcam.h"
 
 class MainWindow;

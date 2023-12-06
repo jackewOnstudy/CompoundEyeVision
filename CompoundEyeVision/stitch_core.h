@@ -17,12 +17,18 @@
 #include <time.h>
 
 #include "type.h"
+#include "cudaImage.h"
+#include "cudaSift.h"
+#include "cuda_function.h"
 
+void update_GpuMapxy(std::vector<Point2f> obj_corners, cuda::GpuMat& maps_x, cuda::GpuMat& maps_y, dim3 numBlocks, dim3 threadsPerBlock);
 
-class stitch_core
-{
-public:
-    stitch_core();
-};
+void stitch_twolayer(cuda::GpuMat& bottom_layer, cuda::GpuMat& top_layer, cuda::GpuMat& dst_layer, dim3 numBlocks, dim3 threadsPerBlock);
+
+void stitchOpt_twolayer(cuda::GpuMat& bottom_layer, cuda::GpuMat& top_layer1, cuda::GpuMat& top_layer2, cuda::GpuMat& top_buffer,
+                        cuda::GpuMat& dst_layer, bool isOdd, dim3 numBlocks, dim3 threadsPerBlock);
+
+vector<cv::Point2f> findStitchCorner(Mat Left_img, Mat Right_img, int idx_left, int idx_right);
+
 
 #endif // STITCH_CORE_H

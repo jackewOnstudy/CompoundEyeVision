@@ -34,6 +34,7 @@ SOURCES += \
 HEADERS += \
     CompoundEye.h \
     backend.h \
+    cuda_function.h \
     displaywidget.h \
     mainwindow.h \
     open_usbcam.h \
@@ -98,12 +99,14 @@ LIBS +=  -L/usr/local/lib \
 
 # This makes the .cu files appear in your project
 OTHER_FILES += \
+    cuda_function.cu \
     CudaSift_Src/cudaImage.cu \
     CudaSift_Src/cudaSiftH.cu \
     CudaSift_Src/matching.cu
 
 # CUDA settings <-- may change depending on your system
 CUDA_SOURCES += \
+    cuda_function.cu \
     CudaSift_Src/cudaImage.cu \
     CudaSift_Src/cudaSiftH.cu \
     CudaSift_Src/matching.cu
