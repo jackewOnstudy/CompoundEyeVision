@@ -20,6 +20,7 @@
 #include "cudaImage.h"
 #include "cudaSift.h"
 #include "cuda_function.h"
+#include "geomFuncs.h"
 
 void update_GpuMapxy(std::vector<Point2f> obj_corners, cuda::GpuMat& maps_x, cuda::GpuMat& maps_y, dim3 numBlocks, dim3 threadsPerBlock);
 

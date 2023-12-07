@@ -25,8 +25,10 @@ public:
 
     std::vector<int> cam_idx;
 
+    // Saves the data for the gpu part of each camera
     std::vector<cam> Cams;
 
+    // VideoCapture type,
     VideoCapture* usbCams;
 
     void open_usbcam();

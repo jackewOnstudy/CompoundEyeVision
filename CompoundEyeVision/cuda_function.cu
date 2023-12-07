@@ -10,6 +10,14 @@ __global__ void map_kernel(cuda::PtrStepSz<double> map_Hinv, cuda::PtrStepSz<flo
     mapy(j, i) = ((map_Hinv(1, 0) * i + map_Hinv(1, 1) * j + map_Hinv(1, 2)) / (map_Hinv(2, 0) * i + map_Hinv(2, 1) * j + map_Hinv(2, 2)));
 }
 
+/**
+ * @brief stitch_kernel
+ * 在合并两个图层时，以非零像素为准。如果顶层图像的像素值为零，则选择底层图像的像素值。
+ * 这种操作通常用于遮罩效果，其中顶层图像的非零像素表示前景，零像素表示透明区域，而底层图像则充当背景。
+ * @param bottom
+ * @param top
+ * @param dst
+ */
 __global__ void stitch_kernel(cuda::PtrStepSz<uchar3> bottom, cuda::PtrStepSz<uchar3> top, cuda::PtrStepSz<uchar3> dst)
 {
     int i = threadIdx.x + blockIdx.x * blockDim.x;
@@ -19,6 +27,19 @@ __global__ void stitch_kernel(cuda::PtrStepSz<uchar3> bottom, cuda::PtrStepSz<uc
     dst(j, i).y = top(j, i).y > 0 ? top(j, i).y : bottom(j, i).y;
     dst(j, i).z = top(j, i).z > 0 ? top(j, i).z : bottom(j, i).z;
 }
+
+/**
+ * @brief stitchOpt_kernel
+ * 通过线程坐标 (i, j) 计算每个像素位置。top_buffer 中的像素值递减，
+ * 且如果 diff_val 大于阈值（20），则 top_buffer 中的像素值被设置为 30。
+ * 根据 top_buffer 的值，决定选择哪个顶层或底层的像素值作为输出。
+ * @param bottom
+ * @param top1
+ * @param top2
+ * @param top_buffer
+ * @param dst
+ * @param odd
+ */
 __global__ void stitchOpt_kernel(cuda::PtrStepSz<uchar3> bottom, cuda::PtrStepSz<uchar3> top1, cuda::PtrStepSz<uchar3> top2,
                                  cuda::PtrStepSz<uchar> top_buffer, cuda::PtrStepSz<uchar3> dst, bool odd)
 {

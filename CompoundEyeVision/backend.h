@@ -40,9 +40,9 @@ public:
     bool open_usbcam();
     bool close_usbcam();
     void update_usb_cam_param(UsbCam usbCam);
-    void update_corner_param(); // update corner param to implement stitch function.
+//    void update_corner_param(); // update corner param to implement stitch function.
 
-    vector<Point2f> autoFindCorner;
+    vector<Point2f> autoFindCorner();
 
 //    Mat surfDetect(Mat imagelf, Mat imagesf, int index);
 //    Point2f getTransformPoint(const Point2f originalPoint, const Mat &transformMaxtri);
@@ -60,6 +60,8 @@ public slots:
     bool funcStreamProcessOpt();
     bool funcStitchProcess();
 
+    bool update_ColorCorrection(vector<Cam>& Cams, vector<Video>& Videos, UsbCam& usbCam);
+
 signals:
     void ack(StreamResult res);
 
@@ -69,6 +71,7 @@ private:
 
     // Camera interface
     vector<Cam> Cams;
+    vector<Video> Videos;
     UsbCam usbCam;
 
     // Subview Mat

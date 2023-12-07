@@ -55,6 +55,7 @@ OBJECTS_DIR   = ./
 SOURCES       = ../CompoundEyeVision/CompoundEye.cpp \
 		../CompoundEyeVision/CudaSift_Src/geomFuncs.cpp \
 		../CompoundEyeVision/backend.cpp \
+		../CompoundEyeVision/dehaze_core.cpp \
 		../CompoundEyeVision/displaywidget.cpp \
 		../CompoundEyeVision/main.cpp \
 		../CompoundEyeVision/mainwindow.cpp \
@@ -69,6 +70,7 @@ OBJECTS       = cuda_function_cuda.o \
 		CompoundEye.o \
 		geomFuncs.o \
 		backend.o \
+		dehaze_core.o \
 		displaywidget.o \
 		main.o \
 		mainwindow.o \
@@ -295,6 +297,7 @@ DIST          = ../CompoundEyeVision/CudaSift_Src/cudaImage.cu \
 		../CompoundEyeVision/CompoundEyeVision.pro ../CompoundEyeVision/CompoundEye.h \
 		../CompoundEyeVision/backend.h \
 		../CompoundEyeVision/cuda_function.h \
+		../CompoundEyeVision/dehaze_core.h \
 		../CompoundEyeVision/displaywidget.h \
 		../CompoundEyeVision/mainwindow.h \
 		../CompoundEyeVision/open_usbcam.h \
@@ -302,6 +305,7 @@ DIST          = ../CompoundEyeVision/CudaSift_Src/cudaImage.cu \
 		../CompoundEyeVision/type.h ../CompoundEyeVision/CompoundEye.cpp \
 		../CompoundEyeVision/CudaSift_Src/geomFuncs.cpp \
 		../CompoundEyeVision/backend.cpp \
+		../CompoundEyeVision/dehaze_core.cpp \
 		../CompoundEyeVision/displaywidget.cpp \
 		../CompoundEyeVision/main.cpp \
 		../CompoundEyeVision/mainwindow.cpp \
@@ -761,8 +765,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../CompoundEyeVision/cuda_function.cu ../CompoundEyeVision/CudaSift_Src/cudaImage.cu ../CompoundEyeVision/CudaSift_Src/cudaSiftH.cu ../CompoundEyeVision/CudaSift_Src/matching.cu $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.h ../CompoundEyeVision/backend.h ../CompoundEyeVision/cuda_function.h ../CompoundEyeVision/displaywidget.h ../CompoundEyeVision/mainwindow.h ../CompoundEyeVision/open_usbcam.h ../CompoundEyeVision/stitch_core.h ../CompoundEyeVision/type.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.cpp ../CompoundEyeVision/CudaSift_Src/geomFuncs.cpp ../CompoundEyeVision/backend.cpp ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/open_usbcam.cpp ../CompoundEyeVision/stitch_core.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.h ../CompoundEyeVision/backend.h ../CompoundEyeVision/cuda_function.h ../CompoundEyeVision/dehaze_core.h ../CompoundEyeVision/displaywidget.h ../CompoundEyeVision/mainwindow.h ../CompoundEyeVision/open_usbcam.h ../CompoundEyeVision/stitch_core.h ../CompoundEyeVision/type.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../CompoundEyeVision/CompoundEye.cpp ../CompoundEyeVision/CudaSift_Src/geomFuncs.cpp ../CompoundEyeVision/backend.cpp ../CompoundEyeVision/dehaze_core.cpp ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/open_usbcam.cpp ../CompoundEyeVision/stitch_core.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CompoundEyeVision/mainwindow.ui ../CompoundEyeVision/mainwindow_copy.ui $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/include /usr/include CompoundEyeVision_zh_CN.ts $(DISTDIR)/
 
@@ -960,6 +964,60 @@ moc_backend.cpp: ../CompoundEyeVision/backend.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/stitch_core.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h \
 		../CompoundEyeVision/open_usbcam.h \
 		moc_predefs.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
@@ -1092,6 +1150,60 @@ moc_displaywidget.cpp: ../CompoundEyeVision/displaywidget.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/stitch_core.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h \
 		../CompoundEyeVision/open_usbcam.h \
 		moc_predefs.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
@@ -1229,6 +1341,60 @@ moc_mainwindow.cpp: ../CompoundEyeVision/mainwindow.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/stitch_core.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h \
 		../CompoundEyeVision/open_usbcam.h \
 		moc_predefs.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
@@ -1370,6 +1536,60 @@ ui_mainwindow.h: ../CompoundEyeVision/mainwindow.ui \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/stitch_core.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h \
 		../CompoundEyeVision/open_usbcam.h
 	/opt/Qt5.14.2/5.14.2/gcc_64/bin/uic ../CompoundEyeVision/mainwindow.ui -o ui_mainwindow.h
 
@@ -1502,6 +1722,60 @@ ui_mainwindow_copy.h: ../CompoundEyeVision/mainwindow_copy.ui \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/stitch_core.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h \
 		../CompoundEyeVision/open_usbcam.h
 	/opt/Qt5.14.2/5.14.2/gcc_64/bin/uic ../CompoundEyeVision/mainwindow_copy.ui -o ui_mainwindow_copy.h
 
@@ -1602,8 +1876,120 @@ backend.o: ../CompoundEyeVision/backend.cpp ../CompoundEyeVision/backend.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/stitch_core.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h \
 		../CompoundEyeVision/open_usbcam.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o backend.o ../CompoundEyeVision/backend.cpp
+
+dehaze_core.o: ../CompoundEyeVision/dehaze_core.cpp ../CompoundEyeVision/dehaze_core.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_launch_parameters.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o dehaze_core.o ../CompoundEyeVision/dehaze_core.cpp
 
 displaywidget.o: ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/displaywidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget \
@@ -1732,6 +2118,60 @@ displaywidget.o: ../CompoundEyeVision/displaywidget.cpp ../CompoundEyeVision/dis
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/stitch_core.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h \
 		../CompoundEyeVision/open_usbcam.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o displaywidget.o ../CompoundEyeVision/displaywidget.cpp
 
@@ -1867,6 +2307,60 @@ main.o: ../CompoundEyeVision/main.cpp ../CompoundEyeVision/mainwindow.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/stitch_core.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h \
 		../CompoundEyeVision/open_usbcam.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qapplication.h \
@@ -2019,6 +2513,60 @@ mainwindow.o: ../CompoundEyeVision/mainwindow.cpp ../CompoundEyeVision/mainwindo
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_defines.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_device_runtime_api.h \
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
+		../CompoundEyeVision/stitch_core.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h \
 		../CompoundEyeVision/open_usbcam.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../CompoundEyeVision/mainwindow.cpp
@@ -2105,7 +2653,58 @@ stitch_core.o: ../CompoundEyeVision/stitch_core.cpp ../CompoundEyeVision/stitch_
 		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_types.h \
 		../CompoundEyeVision/type.h \
 		../CompoundEyeVision/CudaSift_Ind/cudaImage.h \
-		../CompoundEyeVision/CudaSift_Ind/cudaSift.h
+		../CompoundEyeVision/CudaSift_Ind/cudaSift.h \
+		../CompoundEyeVision/cuda_function.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/host_config.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/builtin_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/library_types.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/channel_descriptor.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/cuda_runtime_api.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/driver_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/vector_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/device_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/device_double_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_35_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/sm_90_rt.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/texture_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/surface_indirect_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/cudacc_ext.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/common_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/func_macro.h \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/crt/math_functions.hpp \
+		/usr/local/cuda-12.0/targets/x86_64-linux/include/math_constants.h \
+		../CompoundEyeVision/CudaSift_Ind/geomFuncs.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o stitch_core.o ../CompoundEyeVision/stitch_core.cpp
 
 moc_backend.o: moc_backend.cpp 

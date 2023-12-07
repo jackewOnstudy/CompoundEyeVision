@@ -25,6 +25,7 @@ SOURCES += \
     CompoundEye.cpp \
     CudaSift_Src/geomFuncs.cpp \
     backend.cpp \
+    dehaze_core.cpp \
     displaywidget.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -35,6 +36,7 @@ HEADERS += \
     CompoundEye.h \
     backend.h \
     cuda_function.h \
+    dehaze_core.h \
     displaywidget.h \
     mainwindow.h \
     open_usbcam.h \

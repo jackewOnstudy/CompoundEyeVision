@@ -11,7 +11,7 @@
  * @param numBlocks  Specify the number of GPU blocks and threads
  * @param threadsPerBlock
  */
-void update_GpuMatxy(std::vector<Point2f> obj_corners, cuda::GpuMat& maps_x, cuda::GpuMat& maps_y, dim3 numBlocks, dim3 threadsPerBlock)
+void update_GpuMapxy(std::vector<Point2f> obj_corners, cuda::GpuMat& maps_x, cuda::GpuMat& maps_y, dim3 numBlocks, dim3 threadsPerBlock)
 {
     std::vector<Point2f> borders_corners(4);
     borders_corners[0] = Point(0, 0);

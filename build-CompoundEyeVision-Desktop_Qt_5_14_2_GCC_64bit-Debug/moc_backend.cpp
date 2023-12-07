@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Backend_t {
-    QByteArrayData data[13];
-    char stringdata0[147];
+    QByteArrayData data[20];
+    char stringdata0[225];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -44,13 +44,23 @@ QT_MOC_LITERAL(8, 63, 15), // "streamSingleCam"
 QT_MOC_LITERAL(9, 79, 10), // "initGpuMat"
 QT_MOC_LITERAL(10, 90, 17), // "funcStreamProcess"
 QT_MOC_LITERAL(11, 108, 20), // "funcStreamProcessOpt"
-QT_MOC_LITERAL(12, 129, 17) // "funcStitchProcess"
+QT_MOC_LITERAL(12, 129, 17), // "funcStitchProcess"
+QT_MOC_LITERAL(13, 147, 22), // "update_ColorCorrection"
+QT_MOC_LITERAL(14, 170, 12), // "vector<Cam>&"
+QT_MOC_LITERAL(15, 183, 4), // "Cams"
+QT_MOC_LITERAL(16, 188, 14), // "vector<Video>&"
+QT_MOC_LITERAL(17, 203, 6), // "Videos"
+QT_MOC_LITERAL(18, 210, 7), // "UsbCam&"
+QT_MOC_LITERAL(19, 218, 6) // "usbCam"
 
     },
     "Backend\0ack\0\0StreamResult\0res\0core\0"
     "streamStitch\0StreamMultiCam\0streamSingleCam\0"
     "initGpuMat\0funcStreamProcess\0"
-    "funcStreamProcessOpt\0funcStitchProcess"
+    "funcStreamProcessOpt\0funcStitchProcess\0"
+    "update_ColorCorrection\0vector<Cam>&\0"
+    "Cams\0vector<Video>&\0Videos\0UsbCam&\0"
+    "usbCam"
 };
 #undef QT_MOC_LITERAL
 
@@ -60,7 +70,7 @@ static const uint qt_meta_data_Backend[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -68,17 +78,18 @@ static const uint qt_meta_data_Backend[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   59,    2, 0x06 /* Public */,
+       1,    1,   64,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   62,    2, 0x0a /* Public */,
-       6,    0,   63,    2, 0x0a /* Public */,
-       7,    0,   64,    2, 0x0a /* Public */,
-       8,    0,   65,    2, 0x0a /* Public */,
-       9,    0,   66,    2, 0x0a /* Public */,
-      10,    0,   67,    2, 0x0a /* Public */,
-      11,    0,   68,    2, 0x0a /* Public */,
-      12,    0,   69,    2, 0x0a /* Public */,
+       5,    0,   67,    2, 0x0a /* Public */,
+       6,    0,   68,    2, 0x0a /* Public */,
+       7,    0,   69,    2, 0x0a /* Public */,
+       8,    0,   70,    2, 0x0a /* Public */,
+       9,    0,   71,    2, 0x0a /* Public */,
+      10,    0,   72,    2, 0x0a /* Public */,
+      11,    0,   73,    2, 0x0a /* Public */,
+      12,    0,   74,    2, 0x0a /* Public */,
+      13,    3,   75,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -92,6 +103,7 @@ static const uint qt_meta_data_Backend[] = {
     QMetaType::Bool,
     QMetaType::Bool,
     QMetaType::Bool,
+    QMetaType::Bool, 0x80000000 | 14, 0x80000000 | 16, 0x80000000 | 18,   15,   17,   19,
 
        0        // eod
 };
@@ -114,6 +126,8 @@ void Backend::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 7: { bool _r = _t->funcStreamProcessOpt();
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         case 8: { bool _r = _t->funcStitchProcess();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 9: { bool _r = _t->update_ColorCorrection((*reinterpret_cast< vector<Cam>(*)>(_a[1])),(*reinterpret_cast< vector<Video>(*)>(_a[2])),(*reinterpret_cast< UsbCam(*)>(_a[3])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -158,13 +172,13 @@ int Backend::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }

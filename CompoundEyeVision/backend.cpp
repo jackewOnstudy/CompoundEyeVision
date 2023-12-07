@@ -150,7 +150,7 @@ bool Backend::open_usbcam()
         usbCam.Cams[i].map_corners.push_back(corner[4 * i + 1]);
         usbCam.Cams[i].map_corners.push_back(corner[4 * i + 2]);
         usbCam.Cams[i].map_corners.push_back(corner[4 * i + 3]);
-//        update_GpuMapxy(usbCam.Cams[i].map_corners,  usbCam.Cams[i].gpu_mapx,  usbCam.Cams[i].gpu_mapy, sharedData->numBlocks, sharedData->threadsPerBlock);
+        update_GpuMapxy(usbCam.Cams[i].map_corners,  usbCam.Cams[i].gpu_mapx,  usbCam.Cams[i].gpu_mapy, sharedData->numBlocks, sharedData->threadsPerBlock);
     }
 
     // Save camera SnapShot
@@ -310,7 +310,7 @@ void Backend::streamStitch()
                 for(int i = 0; i < camera_nums; i++) {
                     vector<Point2f> temp_corner;
                     temp_corner.clear();
-                    if(table_cam[i] = -1){
+                    if(table_cam[i] != -1){
                         for(int j = 0; j < 4; j++) {
                             Point2f point_map;
                             point_map.x = (usbCam.Cams[i].map_corners[j].x + sharedData->offset_xy.x) *
@@ -319,11 +319,68 @@ void Backend::streamStitch()
                                     sharedData->rate_resize - (float)(video_rows * (sharedData->rate_resize - 1) / 2);
                             temp_corner.push_back(point_map);
                         }
-//                        update_GpuMatxy()
+                        update_GpuMapxy(temp_corner, usbCam.Cams[i].gpu_mapx, usbCam.Cams[i].gpu_mapy, sharedData->numBlocks, sharedData->threadsPerBlock);
                     }
                 }
+                break;
+            default:
+                break;
         }
     }
+    if(sharedData->isUpdateCC) {
+        sharedData->isUpdateCC = false;
+        sharedData->camSnapshot.clear();
+        update_ColorCorrection(Cams, Videos, usbCam);
+    }
+    switch (sharedData->inputMedia) {
+        case 0:
+            for(int i = 0; i < camera_nums; i++) {
+                if(table_cam[i] != -1) {
+                    if(sharedData->isColorCorrection) {
+                        usbImageToGpuMat(usbCam.usbCams[table_cam[i]], usbCam.Cams[i].gpu_src, gpuGTable);
+                        // TODO usb image to GpuMat with color correction
+                    }else {
+                        usbImageToGpuMat(usbCam.usbCams[table_cam[i]], usbCam.Cams[i].gpu_src, gpuGTable);
+                    }
+                }else {
+                    usbCam.Cams[i].gpu_dst = gpuEmpty;
+                }
+
+            }
+
+            for(int i = 0; i < camera_nums; i++) {
+                if(sharedData->isInterFrame) {
+                    if(frame_cnt % 2 == 0) {
+                        cuda::remap(usbCam.Cams[i].gpu_src, usbCam.Cams[i].gpu_frame2, usbCam.Cams[i].gpu_mapx, usbCam.Cams[i].gpu_mapy, INTER_NEAREST, BORDER_CONSTANT, cv::Scalar(0, 0, 0));
+                    }else {
+                        cuda::remap(usbCam.Cams[i].gpu_src, usbCam.Cams[i].gpu_frame1, usbCam.Cams[i].gpu_mapx, usbCam.Cams[i].gpu_mapy, INTER_NEAREST, BORDER_CONSTANT, cv::Scalar(0, 0, 0));
+                    }
+                }else {
+                    cuda::remap(usbCam.Cams[i].gpu_src, usbCam.Cams[i].gpu_dst, usbCam.Cams[i].gpu_mapx, usbCam.Cams[i].gpu_mapy, INTER_NEAREST, BORDER_CONSTANT, cv::Scalar(0));
+                }
+            }
+
+            if(sharedData->isInterFrame) {
+                for(int i = 0; i < camera_nums; i++) {
+                    stitchOpt_twolayer(gpuStitchResult, usbCam.Cams[i].gpu_frame1, usbCam.Cams[i].gpu_frame2, usbCam.Cams[i].gpu_buffer, gpuStitchResult, frame_cnt % 2, sharedData->numBlocks, sharedData->threadsPerBlock);
+                }
+            }else {
+                stitch_twolayer(usbCam.Cams[0].gpu_dst, usbCam.Cams[1].gpu_dst, gpuStitchResult, sharedData->numBlocks, sharedData->threadsPerBlock);
+                if(camera_nums > 2) {
+                    for(int i = 2; i < camera_nums; i++) {
+                        stitch_twolayer(gpuStitchResult, usbCam.Cams[i].gpu_dst, gpuStitchResult, sharedData->numBlocks, sharedData->threadsPerBlock);
+                    }
+                }
+            }
+
+            cuda::resize(gpuStitchResult, gpuStitchViewResult, Size(view_cols, view_rows), 0, 0, INTER_CUBIC);
+            funcStitchProcess();
+            cv::cvtColor(cpuStichResult, res.view_stitch, COLOR_BGR2RGB);
+            emit ack(res);
+            break;
+        default:
+         break;
+     }
 }
 
 
@@ -347,6 +404,13 @@ void Backend::update_usb_cam_param(UsbCam usbCam)
 {
     
 }
+
+bool Backend::update_ColorCorrection(vector<Cam>& Cams, vector<Video>& Videos, UsbCam& usbCam)
+{
+
+}
+
+
 
 //get stitch corner from txt
 vector<Point2f> getCornerFromTxt(QString CornerAddr)
@@ -374,5 +438,29 @@ vector<Point2f> getCornerFromTxt(QString CornerAddr)
 // get stitch corner from sift
 vector<Point2f> getCornerFromSift(vector<Mat> camSnapshot)
 {
+    vector<Point2f> result;
+    result.push_back(Point2f(0, 0));
+    result.push_back(Point2f(video_cols, 0));
+    result.push_back(Point2f(video_cols, video_rows));
+    result.push_back(Point2f(0, video_rows));
+    if(camera_nums > 1) {
+        vector<Point2f> tmp_corner;
+        tmp_corner.clear();
+        for(int i = 0; i < camera_nums - 1; i++) {
+            tmp_corner = findStitchCorner(camSnapshot[i + 1], camSnapshot[0], i + 1, 0);
 
+            if(tmp_corner.size() != 0) {
+                for(unsigned int j = 0; j < tmp_corner.size(); j++) {
+                    result.push_back(tmp_corner[j]);
+                }
+            }else {
+                result.push_back(Point2f(0, 0));
+                result.push_back(Point2f(video_cols, 0));
+                result.push_back(Point2f(video_cols, video_rows));
+                result.push_back(Point2f(0, video_rows));
+                qDebug() << "Can't find the corner on the image" << endl;
+            }
+        }
+    }
+    return result;
 }

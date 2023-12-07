@@ -93,7 +93,7 @@ typedef struct
     double wb_val2;
 } camParam;
 
-//for flycam and spincam
+//for usbcam and spincam
 typedef struct
 {
     Mat frame;
