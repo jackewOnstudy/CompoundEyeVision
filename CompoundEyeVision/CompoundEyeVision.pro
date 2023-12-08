@@ -27,6 +27,7 @@ SOURCES += \
     backend.cpp \
     dehaze_core.cpp \
     displaywidget.cpp \
+    enhance_core.cpp \
     main.cpp \
     mainwindow.cpp \
     open_usbcam.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     cuda_function.h \
     dehaze_core.h \
     displaywidget.h \
+    enhance_core.h \
     mainwindow.h \
     open_usbcam.h \
     stitch_core.h \

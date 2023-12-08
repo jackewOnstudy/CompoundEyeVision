@@ -445,3 +445,8 @@ void MainWindow::on_spinBox_zoom_val_valueChanged(int arg1)
     sharedData.zoom_Val = arg1;
     ui->label_zoom_val->setNum(arg1);
 }
+
+void MainWindow::on_radioButton_isInterFrame_toggled(bool checked)
+{
+    sharedData.isInterFrame = checked;
+}

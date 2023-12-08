@@ -387,17 +387,93 @@ void Backend::streamStitch()
 
 bool Backend::funcStreamProcessOpt()
 {
+    bool success;
+    switch (sharedData->inputMedia) {
+        case 0:
+            if(sharedData->isDehaze && !sharedData->isEnhance) {
+                dehaze_opt(usbCam.Cams[sharedData->idx_camSelect].gpu_frame1, usbCam.Cams[sharedData->idx_camSelect].gpu_frame2, res_dehaze,
+                        res_darkch, res_tran, usbCam.Cams[sharedData->idx_camSelect].gpu_buffer, frame_cnt % 2,
+                        sharedData->air_val, sharedData->numBlocks, sharedData->threadsPerBlock);
+                res_dehaze.download(imgMultiCam[sharedData->idx_camSelect]);
+            }else if(sharedData->isEnhance && !sharedData->isDehaze) {
+                enhance_opt(usbCam.Cams[sharedData->idx_camSelect].gpu_frame1, usbCam.Cams[sharedData->idx_camSelect].gpu_frame2, res_enhanceLL,
+                        res_darkch, res_tran_LL, usbCam.Cams[sharedData->idx_camSelect].gpu_buffer, frame_cnt % 2,
+                        sharedData->enhance_kVal, sharedData->air_val, sharedData->numBlocks, sharedData->threadsPerBlock);
+                res_enhanceLL.download(imgMultiCam[sharedData->idx_camSelect]);
+            }else if(sharedData->isDehaze && sharedData->isEnhance) {
+                dehaze_opt(usbCam.Cams[sharedData->idx_camSelect].gpu_frame1, usbCam.Cams[sharedData->idx_camSelect].gpu_frame2, res_dehaze,
+                        res_darkch, res_tran, usbCam.Cams[sharedData->idx_camSelect].gpu_buffer, frame_cnt % 2,
+                        sharedData->air_val, sharedData->numBlocks, sharedData->threadsPerBlock);
+                enhance(res_dehaze, res_enhanceLL, res_darkch, res_tran_LL, sharedData->enhance_kVal, sharedData->air_val, sharedData->numBlocks, sharedData->threadsPerBlock);
+                res_enhanceLL.download(imgMultiCam[sharedData->idx_camSelect]);
+            }
+            else {
+                if(frame_cnt % 2 == 0) {
+                    usbCam.Cams[sharedData->idx_camSelect].gpu_frame2.download(imgMultiCam[sharedData->idx_camSelect]);
+                }else {
+                    usbCam.Cams[sharedData->idx_camSelect].gpu_frame1.download(imgMultiCam[sharedData->idx_camSelect]);
+                }
+            }
+            break;
+        default:
+            break;
+    }
 
+    success = true;
+    return success;
 }
 
 bool Backend::funcStreamProcess()
 {
+    float zoom_check = (sharedData->zoom_Val) / 10.0 + 1;
+    int tmp_idxCamSelect = -1;
+    if(zoom_check < 3) {
+        tmp_idxCamSelect = 0;
+    }else if(zoom_check < 5){
+        tmp_idxCamSelect = 1;
+    }else if(zoom_check < 7) {
+        tmp_idxCamSelect = 2;
+    }else {
+        tmp_idxCamSelect = 3;
+    }
+    bool success = false;
+    if(sharedData->isDehaze && !sharedData->isEnhance) {
+        dehaze(gpu_rgb, res_dehaze, res_darkch, res_tran, sharedData->air_val, sharedData->numBlocks, sharedData->threadsPerBlock);
+        res_dehaze.download(imgMultiCam[tmp_idxCamSelect]);
+    }else if(sharedData->isEnhance && !sharedData->isDehaze) {
+        enhance(gpu_rgb, res_enhanceLL, res_darkch, res_tran_LL, sharedData->enhance_kVal, sharedData->air_val, sharedData->numBlocks, sharedData->threadsPerBlock);
+        res_enhanceLL.download(imgMultiCam[tmp_idxCamSelect]);
+    }else if(sharedData->isEnhance && sharedData->isDehaze) {
+        dehaze(gpu_rgb, res_dehaze, res_darkch, res_tran, sharedData->air_val, sharedData->numBlocks, sharedData->threadsPerBlock);
+        enhance(res_dehaze, res_enhanceLL, res_darkch, res_tran_LL, sharedData->enhance_kVal, sharedData->air_val, sharedData->numBlocks, sharedData->threadsPerBlock);
+        res_enhanceLL.download(imgMultiCam[tmp_idxCamSelect]);
+    }else {
+        gpu_rgb.download(imgMultiCam[tmp_idxCamSelect]);
+    }
 
+    success = true;
+    return success;
 }
 
 bool Backend:: funcStitchProcess()
 {
+    bool success = false;
+    if(sharedData->isDehaze && !sharedData->isEnhance) {
+        dehaze(gpuStitchViewResult, view_dehaze, view_darkch, view_tran, sharedData->air_val, sharedData->view_numBlocks, sharedData->view_threadsPerBlock);
+        view_dehaze.download(cpuStichResult);
+    }else if(sharedData->isEnhance && !sharedData->isDehaze) {
+        enhance(gpuStitchViewResult, view_enhanceLL, view_darkch, view_tran_LL, sharedData->enhance_kVal, sharedData->air_val, sharedData->view_numBlocks, sharedData->view_threadsPerBlock);
+        view_enhanceLL.download(cpuStichResult);
+    }else if(sharedData->isDehaze && sharedData->isEnhance) {
+        dehaze(gpuStitchViewResult, view_dehaze, view_darkch, view_tran, sharedData->air_val, sharedData->view_numBlocks, sharedData->view_threadsPerBlock);
+        enhance(view_dehaze, view_enhanceLL, view_darkch, view_tran_LL, sharedData->enhance_kVal, sharedData->air_val, sharedData->view_numBlocks, sharedData->view_threadsPerBlock);
+        view_enhanceLL.download(cpuStichResult);
+    }else {
+        gpuStitchViewResult.download(cpuStichResult);
+    }
 
+    success = true;
+    return success;
 }
 
 void Backend::update_usb_cam_param(UsbCam usbCam)
@@ -407,7 +483,43 @@ void Backend::update_usb_cam_param(UsbCam usbCam)
 
 bool Backend::update_ColorCorrection(vector<Cam>& Cams, vector<Video>& Videos, UsbCam& usbCam)
 {
+    std::vector<Mat> camSnapShot;
+    camSnapShot.clear();
+    switch (sharedData->inputMedia) {
+        case 0:
+            for(int i = 0; i < camera_nums; i++) {
+                camSnapShot.push_back(readUsbImg(usbCam.usbCams[i]));
+            }
+            for(int i = 0; i < camera_nums; i++) {
+                Mat Mask_roi = Mat(video_rows, video_cols, CV_8UC1, Scalar(0));
+                vector<vector<Point>> contour;
+                vector<Point> pts;
+                pts.push_back(usbCam.Cams[i].map_corners[0]);
+                pts.push_back(usbCam.Cams[i].map_corners[1]);
+                pts.push_back(usbCam.Cams[i].map_corners[2]);
+                pts.push_back(usbCam.Cams[i].map_corners[3]);
+                contour.push_back(pts);
 
+                drawContours(Mask_roi, contour, 0, Scalar::all(255), -1);
+
+                usbCam.Cams[i].gpu_src.upload(camSnapShot[i]);
+                cuda::remap(usbCam.Cams[i].gpu_src, usbCam.Cams[i].gpu_dst, usbCam.Cams[i].gpu_mapx, usbCam.Cams[i].gpu_mapy,
+                            INTER_NEAREST, BORDER_CONSTANT, Scalar(0));
+                Mat dst;
+                usbCam.Cams[i].gpu_dst.download(dst);
+
+                Scalar Mean_color = mean(dst, Mask_roi);
+                Scalar MeanBG_color = mean(camSnapShot[0], Mask_roi);
+
+                for(int j = 0; j < 3; j++) {
+                    usbCam.Cams[i].factorBGR[j] = (float)MeanBG_color[j] / (float)Mean_color[j];
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    return true;
 }
 
 

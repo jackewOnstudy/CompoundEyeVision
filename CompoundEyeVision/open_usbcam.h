@@ -36,5 +36,5 @@ public:
 };
 
 void usbImageToGpuMat(VideoCapture camera, cuda::GpuMat& GpuRGB, cuda::GpuMat& GTable);
-
+Mat readUsbImg(VideoCapture camera);
 #endif // OPEN_USBCAM_H

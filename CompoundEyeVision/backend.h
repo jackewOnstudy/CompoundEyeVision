@@ -25,6 +25,8 @@
 #include <cmath>
 
 #include "type.h"
+#include "dehaze_core.h"
+#include "enhance_core.h"
 #include "stitch_core.h"
 #include "open_usbcam.h"
 

@@ -53,6 +53,18 @@ void UsbCam::close_usbcam()
     delete[] usbCams;
 }
 
+Mat readUsbImg(VideoCapture camera)
+{
+    Mat img;
+    camera.read(img);
+    if(img.empty()) {
+        std::cerr << "image is empty!" << endl;
+    }
+    cvtColor(img, img, cv::COLOR_BGR2RGB);
+
+    return img;
+}
+
 /**
  * @brief cover the Mat type to GpuMat type
  * @param src_img: Image format for USB camera direct output
